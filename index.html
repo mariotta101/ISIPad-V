@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ISIPad:V</title>
+
+    <link
+        rel="stylesheet"
+        href="estilos.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================
+         ENCABEZADO
+    ====================================== -->
+
+    <header class="encabezado">
+
+
+        <div class="encabezado-marca">
+
+            <div class="marca-superior">
+                MIDI PERFORMANCE
+            </div>
+
+            <h1>
+                ISIPad:V
+            </h1>
+
+            <p>
+                Personal MIDI Pad
+            </p>
+
+            <div
+                id="estado-midi"
+                class="estado desconectado"
+            >
+                MIDI esperando
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             PANTALLAS
+        ================================== -->
+
+        <div class="pantallas-header">
+
+
+            <!-- PAD BANK -->
+
+            <section class="pantalla-display">
+
+                <div class="display-titulo">
+                    PAD BANK
+                </div>
+
+
+                <div class="display-linea">
+
+                    <span>
+                        PRESET
+                    </span>
+
+                    <select
+                        id="selector-pad-preset"
+                    >
+                    </select>
+
+                </div>
+
+
+                <div class="display-linea">
+
+                    <span>
+                        PAD
+                    </span>
+
+                    <select
+                        id="selector-pad-destino"
+                    >
+
+                        <option value="pad1">
+                            PAD 1
+                        </option>
+
+                        <option value="pad2">
+                            PAD 2
+                        </option>
+
+                        <option value="pad3">
+                            PAD 3
+                        </option>
+
+                        <option value="pad4">
+                            PAD 4
+                        </option>
+
+                        <option value="pad5">
+                            PAD 5
+                        </option>
+
+                        <option value="pad6">
+                            PAD 6
+                        </option>
+
+                        <option value="pad7">
+                            PAD 7
+                        </option>
+
+                        <option value="pad8">
+                            PAD 8
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="display-pad-preset"
+                    class="display-principal"
+                >
+                    Kick Deep
+                </div>
+
+
+                <div
+                    id="display-pad-detalle"
+                    class="display-detalle"
+                >
+                    Destino: KICK · Drums
+                </div>
+
+
+                <div
+                    id="display-pad-daw"
+                    class="display-daw"
+                >
+                    DAW: NO DETECTADO
+                </div>
+
+            </section>
+
+
+
+            <!-- SYNTH -->
+
+            <section class="pantalla-display">
+
+                <div class="display-titulo">
+                    SYNTH / KEYBOARD
+                </div>
+
+
+                <div class="display-linea">
+
+                    <span>
+                        PRESET
+                    </span>
+
+                    <select
+                        id="selector-synth-preset"
+                    >
+                    </select>
+
+                </div>
+
+
+                <div class="display-linea">
+
+                    <span>
+                        DAW
+                    </span>
+
+                    <select
+                        id="selector-daw"
+                    >
+
+                        <option value="No detectado">
+                            No detectado
+                        </option>
+
+                        <option value="Ableton Live">
+                            Ableton Live
+                        </option>
+
+                        <option value="Logic Pro">
+                            Logic Pro
+                        </option>
+
+                        <option value="FL Studio">
+                            FL Studio
+                        </option>
+
+                        <option value="Cubase">
+                            Cubase
+                        </option>
+
+                        <option value="Pro Tools">
+                            Pro Tools
+                        </option>
+
+                        <option value="MainStage">
+                            MainStage
+                        </option>
+
+                        <option value="Otro">
+                            Otro
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="display-synth-preset"
+                    class="display-principal"
+                >
+                    Grand Piano
+                </div>
+
+
+                <div
+                    id="display-synth-detalle"
+                    class="display-detalle"
+                >
+                    Banco: Piano
+                </div>
+
+            </section>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         CONTROLADOR
+    ====================================== -->
+
+    <section class="panel controlador-panel">
+
+        <div class="titulo-seccion">
+
+            <span class="eyebrow">
+                MIDI INPUT
+            </span>
+
+            <h2>
+                Controlador
+            </h2>
+
+            <p>
+                ISIPad detectará automáticamente los pads MIDI.
+            </p>
+
+        </div>
+
+
+        <label for="dispositivos-midi">
+            Dispositivo MIDI
+        </label>
+
+
+        <div class="selector-controlador-row">
+
+            <select
+                id="dispositivos-midi"
+            >
+
+                <option value="">
+                    Seleccionar dispositivo...
+                </option>
+
+            </select>
+
+
+            <button
+                id="boton-redetectar-pads"
+                class="boton-secundario"
+                type="button"
+            >
+                ↻ REdetectar pads
+            </button>
+
+        </div>
+
+
+        <div
+            id="controlador-detectado"
+            class="controlador-detectado"
+        >
+            Controlador: ninguno conectado
+        </div>
+
+
+        <div class="auto-pad-status">
+
+            <div class="auto-pad-indicador"></div>
+
+            <span id="estado-auto-pad">
+                Auto Pad: esperando controlador
+            </span>
+
+        </div>
+
+
+        <div class="midi-info">
+
+            <div class="dato">
+
+                <span>
+                    Nota
+                </span>
+
+                <strong id="nota-midi">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="dato">
+
+                <span>
+                    Número MIDI
+                </span>
+
+                <strong id="numero-midi">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="dato">
+
+                <span>
+                    Velocity
+                </span>
+
+                <strong id="velocidad-midi">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             LANZADOR MODO CLASE
+        ================================== -->
+
+        <div class="modo-clase-lanzador">
+
+            <button
+                id="boton-abrir-modo-clase"
+                class="boton-modo-clase-lanzador"
+                type="button"
+            >
+
+                <span class="icono-modo-clase">
+                    🎹
+                </span>
+
+                <span class="texto-modo-clase">
+                    MODO CLASE
+                </span>
+
+                <span class="subtexto-modo-clase">
+                    Abrir piano y detector de acordes
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         MODO CLASE
+    ====================================== -->
+
+    <section
+        id="modo-clase"
+        class="panel modo-clase-panel"
+        hidden
+    >
+
+        <div class="modo-clase-cabecera">
+
+            <div class="titulo-seccion">
+
+                <span class="eyebrow">
+                    MODO CLASE
+                </span>
+
+                <h2>
+                    Piano / Chord Display
+                </h2>
+
+                <p>
+                    Visualización en tiempo real de las notas,
+                    acordes y sustain recibidos por MIDI.
+                </p>
+
+            </div>
+
+
+            <div class="modo-clase-controles">
+
+                <button
+                    id="boton-modo-clase"
+                    class="boton-clase"
+                    type="button"
+                >
+                    OCULTAR MODO CLASE
+                </button>
+
+
+                <button
+                    id="boton-desprender-piano"
+                    class="boton-clase boton-desprender"
+                    type="button"
+                >
+                    ↗ DESPRENDER PIANO
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             INFORMACIÓN DEL ACORDE
+        ================================== -->
+
+        <div class="clase-informacion">
+
+            <div class="clase-acorde">
+
+                <span class="clase-etiqueta">
+                    ACORDE ACTUAL
+                </span>
+
+                <strong id="acorde-clase">
+                    —
+                </strong>
+
+                <span id="notas-clase">
+                    —
+                </span>
+
+            </div>
+
+
+            <div
+                id="sustain-clase"
+                class="sustain-indicador"
+            >
+
+                <span class="sustain-luz"></span>
+
+                <span>
+                    SUSTAIN
+                </span>
+
+                <strong>
+                    OFF
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             PIANO
+        ================================== -->
+
+        <div
+            id="contenedor-piano-clase"
+            class="contenedor-piano-clase"
+        >
+
+            <div
+                id="piano-clase"
+                class="piano-clase"
+            >
+
+                <div
+                    id="teclado-clase"
+                    class="teclado-clase"
+                >
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="estado-modo-clase"
+            class="estado-modo-clase"
+        >
+            Modo Clase listo · 88 teclas
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         PADS
+    ====================================== -->
+
+    <section class="panel">
+
+        <div class="titulo-seccion">
+
+            <span class="eyebrow">
+                PERFORMANCE
+            </span>
+
+            <h2>
+                Drum / Sample Pads
+            </h2>
+
+            <p>
+                Los pads se asignan automáticamente desde el controlador MIDI.
+                Clic derecho para configuración manual.
+            </p>
+
+        </div>
+
+
+        <div class="drum-grid">
+
+
+            <!-- PAD 1 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad1"
+            >
+
+                <button
+                    class="drum-pad pad-color-1"
+                    type="button"
+                >
+
+                    <span>
+                        KICK
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Kick Deep
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 2 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad2"
+            >
+
+                <button
+                    class="drum-pad pad-color-2"
+                    type="button"
+                >
+
+                    <span>
+                        SNARE
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Snare Tight
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 3 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad3"
+            >
+
+                <button
+                    class="drum-pad pad-color-3"
+                    type="button"
+                >
+
+                    <span>
+                        HI-HAT
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Hi-Hat Closed
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 4 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad4"
+            >
+
+                <button
+                    class="drum-pad pad-color-4"
+                    type="button"
+                >
+
+                    <span>
+                        CLAP
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Clap Studio
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 5 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad5"
+            >
+
+                <button
+                    class="drum-pad pad-user-1"
+                    type="button"
+                >
+
+                    <span>
+                        USER 1
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Vacío
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 6 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad6"
+            >
+
+                <button
+                    class="drum-pad pad-user-2"
+                    type="button"
+                >
+
+                    <span>
+                        USER 2
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Vacío
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 7 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad7"
+            >
+
+                <button
+                    class="drum-pad pad-user-3"
+                    type="button"
+                >
+
+                    <span>
+                        USER 3
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Vacío
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- PAD 8 -->
+
+            <div
+                class="pad-config"
+                data-pad-id="pad8"
+            >
+
+                <button
+                    class="drum-pad pad-user-4"
+                    type="button"
+                >
+
+                    <span>
+                        USER 4
+                    </span>
+
+                    <small class="asignacion-pad">
+                        Vacío
+                    </small>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         PERILLAS
+    ====================================== -->
+
+    <section class="panel">
+
+        <div class="titulo-seccion">
+
+            <span class="eyebrow">
+                MIDI CONTROL
+            </span>
+
+            <h2>
+                Performance Controls
+            </h2>
+
+            <p>
+                Arrastra verticalmente o asigna un MIDI CC.
+            </p>
+
+        </div>
+
+
+        <div class="perillas-grid">
+
+
+            <div
+                class="perilla-contenedor"
+                data-control="reverb"
+            >
+
+                <strong>
+                    REVERB
+                </strong>
+
+                <div class="perilla">
+
+                    <div class="perilla-indicador"></div>
+
+                    <div class="perilla-centro">
+
+                        <span class="valor-perilla">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <span class="cc-info">
+                    MIDI CC —
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="perilla-contenedor"
+                data-control="eqLow"
+            >
+
+                <strong>
+                    EQ LOW
+                </strong>
+
+                <div class="perilla">
+
+                    <div class="perilla-indicador"></div>
+
+                    <div class="perilla-centro">
+
+                        <span class="valor-perilla">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <span class="cc-info">
+                    MIDI CC —
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="perilla-contenedor"
+                data-control="eqMid"
+            >
+
+                <strong>
+                    EQ MID
+                </strong>
+
+                <div class="perilla">
+
+                    <div class="perilla-indicador"></div>
+
+                    <div class="perilla-centro">
+
+                        <span class="valor-perilla">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <span class="cc-info">
+                    MIDI CC —
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="perilla-contenedor"
+                data-control="eqHigh"
+            >
+
+                <strong>
+                    EQ HIGH
+                </strong>
+
+                <div class="perilla">
+
+                    <div class="perilla-indicador"></div>
+
+                    <div class="perilla-centro">
+
+                        <span class="valor-perilla">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <span class="cc-info">
+                    MIDI CC —
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="perilla-contenedor"
+                data-control="delay"
+            >
+
+                <strong>
+                    DELAY
+                </strong>
+
+                <div class="perilla">
+
+                    <div class="perilla-indicador"></div>
+
+                    <div class="perilla-centro">
+
+                        <span class="valor-perilla">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <span class="cc-info">
+                    MIDI CC —
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         MEMORIAS
+    ====================================== -->
+
+    <section class="panel">
+
+        <div class="titulo-seccion">
+
+            <span class="eyebrow">
+                SNAPSHOTS
+            </span>
+
+            <h2>
+                Memorias
+            </h2>
+
+            <p>
+                Clic izquierdo para cargar · clic derecho para guardar o eliminar.
+            </p>
+
+        </div>
+
+
+        <div class="memorias">
+
+            <button
+                class="boton-memoria"
+                data-memoria="1"
+                type="button"
+            >
+                MEMORY 01
+            </button>
+
+            <button
+                class="boton-memoria"
+                data-memoria="2"
+                type="button"
+            >
+                MEMORY 02
+            </button>
+
+            <button
+                class="boton-memoria"
+                data-memoria="3"
+                type="button"
+            >
+                MEMORY 03
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         MONITOR
+    ====================================== -->
+
+    <section class="panel">
+
+        <div class="titulo-seccion">
+
+            <span class="eyebrow">
+                MIDI MONITOR
+            </span>
+
+            <h2>
+                Monitor
+            </h2>
+
+        </div>
+
+
+        <div
+            id="monitor-midi"
+            class="monitor"
+        >
+            Sistema MIDI esperando...
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         MENÚ PERILLA
+    ====================================== -->
+
+    <div
+        id="menu-perilla"
+        class="menu-contextual"
+    >
+
+        <button
+            id="opcion-asignar-midi"
+            type="button"
+        >
+            Asignar MIDI CC
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================
+         MENÚ PAD
+    ====================================== -->
+
+    <div
+        id="menu-pad"
+        class="menu-contextual"
+    >
+
+        <button
+            id="opcion-asignar-pad-midi"
+            type="button"
+        >
+            Asignar MIDI manual
+        </button>
+
+        <button
+            id="opcion-asignar-preset-pad"
+            type="button"
+        >
+            Asignar preset seleccionado
+        </button>
+
+        <button
+            id="opcion-cargar-sample"
+            type="button"
+        >
+            Cargar sample
+        </button>
+
+        <button
+            id="opcion-quitar-sonido"
+            type="button"
+        >
+            Quitar sonido
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================
+         MENÚ MEMORIA
+    ====================================== -->
+
+    <div
+        id="menu-memoria"
+        class="menu-contextual"
+    >
+
+        <button
+            id="opcion-guardar-memoria"
+            type="button"
+        >
+            Guardar configuración
+        </button>
+
+        <button
+            id="opcion-eliminar-memoria"
+            type="button"
+        >
+            Eliminar memoria
+        </button>
+
+    </div>
+
+
+
+    <input
+        type="file"
+        id="input-sample-pad"
+        accept="audio/*"
+        hidden
+    >
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer>
+
+        <span>
+            EasyPad
+        </span>
+
+        <span>
+            Personal MIDI Pad · 0.5
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>

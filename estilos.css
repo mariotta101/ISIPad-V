@@ -1,0 +1,2699 @@
+/* =========================================
+ISIPad:V
+Personal MIDI Pad
+UI 0.5
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --bg-main: #080b14;
+
+    --panel: rgba(20, 25, 40, 0.82);
+
+    --panel-strong: rgba(24, 30, 48, 0.94);
+
+    --border: rgba(255,255,255,0.09);
+
+    --text: #f5f7ff;
+
+    --muted: #8993ad;
+
+    --blue: #4c8dff;
+
+    --cyan: #00d9ff;
+
+    --purple: #8b5cf6;
+
+    --green: #35e6a3;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 10% 5%,
+            rgba(76,141,255,0.16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(139,92,246,0.13),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(0,217,255,0.07),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #070a12,
+            #0c1020 50%,
+            #080b14
+        );
+
+}
+
+
+/* =========================================
+APP
+========================================= */
+
+.app {
+
+    width: min(1180px, 94%);
+
+    margin: 28px auto 45px;
+
+}
+
+
+/* =========================================
+ENCABEZADO
+========================================= */
+
+.encabezado {
+
+    display: grid;
+
+    grid-template-columns:
+        250px
+        1fr;
+
+    gap: 18px;
+
+    padding: 18px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 25px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(35,42,64,0.94),
+            rgba(13,17,29,0.96)
+        );
+
+    box-shadow:
+
+        0 30px 70px
+        rgba(0,0,0,0.45),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.07);
+
+    backdrop-filter: blur(18px);
+
+}
+
+
+.encabezado-marca {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 15px;
+
+}
+
+
+.marca-superior {
+
+    margin-bottom: 7px;
+
+    color: #6f86ad;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+}
+
+
+.encabezado h1 {
+
+    margin: 0;
+
+    font-size: 39px;
+
+    line-height: 1;
+
+    letter-spacing: -1.8px;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            #ffffff,
+            #9ec5ff,
+            #a78bfa
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.encabezado p {
+
+    margin: 8px 0 18px;
+
+    color: #8d98b0;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+ESTADO MIDI
+========================================= */
+
+.estado {
+
+    width: fit-content;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .4px;
+
+    border: 1px solid transparent;
+
+}
+
+
+.desconectado {
+
+    color: #ff9fac;
+
+    background: rgba(255,70,95,0.09);
+
+    border-color: rgba(255,70,95,0.2);
+
+}
+
+
+.conectado {
+
+    color: #6ff1bd;
+
+    background: rgba(53,230,163,0.09);
+
+    border-color: rgba(53,230,163,0.22);
+
+}
+
+
+/* =========================================
+PANTALLAS HEADER
+========================================= */
+
+.pantallas-header {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 13px;
+
+}
+
+
+.pantalla-display {
+
+    min-width: 0;
+
+    min-height: 148px;
+
+    padding: 13px 15px;
+
+    border-radius: 17px;
+
+    border: 1px solid
+        rgba(255,255,255,0.09);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(12,18,32,0.96),
+            rgba(16,20,36,0.88)
+        );
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,0.05),
+
+        0 14px 30px
+        rgba(0,0,0,0.25);
+
+}
+
+
+.display-titulo {
+
+    margin-bottom: 10px;
+
+    color: #6e8fc4;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.display-linea {
+
+    display: grid;
+
+    grid-template-columns:
+        48px
+        1fr;
+
+    gap: 7px;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+
+}
+
+
+.display-linea span {
+
+    color: #65728d;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .8px;
+
+}
+
+
+.display-linea select {
+
+    width: 100%;
+
+    padding: 5px 7px;
+
+    border-radius: 7px;
+
+    border: 1px solid
+        rgba(255,255,255,0.09);
+
+    background:
+        rgba(255,255,255,0.045);
+
+    color: #e9edfa;
+
+    font-size: 10px;
+
+    outline: none;
+
+}
+
+
+.display-linea select:focus {
+
+    border-color:
+        rgba(76,141,255,0.55);
+
+}
+
+
+.display-principal {
+
+    overflow: hidden;
+
+    margin-top: 9px;
+
+    color: #f2f6ff;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: -.2px;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.display-detalle {
+
+    overflow: hidden;
+
+    margin-top: 4px;
+
+    color: #76839f;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.display-daw {
+
+    margin-top: 7px;
+
+    color: #4f9eff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+PANELES
+========================================= */
+
+.panel {
+
+    position: relative;
+
+    margin-top: 18px;
+
+    padding: 23px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(25,31,49,0.86),
+            rgba(14,18,31,0.93)
+        );
+
+    box-shadow:
+
+        0 20px 45px
+        rgba(0,0,0,0.27),
+
+        inset 0 1px 0
+        rgba(255,255,255,0.045);
+
+    backdrop-filter: blur(15px);
+
+}
+
+
+.panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 28px;
+
+    right: 28px;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.12),
+            transparent
+        );
+
+}
+
+
+.titulo-seccion {
+
+    margin-bottom: 16px;
+
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #5d86c8;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.panel h2 {
+
+    margin: 0 0 5px;
+
+    font-size: 20px;
+
+    letter-spacing: -.5px;
+
+}
+
+
+.panel p {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+SELECT
+========================================= */
+
+select {
+
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border-radius: 11px;
+
+    border: 1px solid
+        rgba(255,255,255,0.1);
+
+    background:
+        rgba(5,8,16,0.72);
+
+    color: white;
+
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+
+select:focus {
+
+    border-color:
+        rgba(76,141,255,0.6);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(76,141,255,0.08);
+
+}
+
+
+/* =========================================
+CONTROLADOR
+========================================= */
+
+.selector-controlador-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    gap: 10px;
+
+}
+
+
+.boton-secundario {
+
+    padding: 0 17px;
+
+    border-radius: 11px;
+
+    border: 1px solid
+        rgba(76,141,255,0.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(76,141,255,0.15),
+            rgba(76,141,255,0.06)
+        );
+
+    color: #a9c8ff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s,
+        background .15s,
+        border-color .15s;
+
+}
+
+
+.boton-secundario:hover {
+
+    background:
+        rgba(76,141,255,0.2);
+
+    border-color:
+        rgba(76,141,255,0.45);
+
+}
+
+
+.boton-secundario:active {
+
+    transform: scale(.97);
+
+}
+
+
+.controlador-detectado {
+
+    margin-top: 10px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    border: 1px solid
+        rgba(255,255,255,0.07);
+
+    background:
+        rgba(5,8,15,0.55);
+
+    color: #8290aa;
+
+    font-family: monospace;
+
+    font-size: 11px;
+
+}
+
+
+.controlador-detectado strong {
+
+    color: #dce6fb;
+
+}
+
+
+/* =========================================
+LANZADOR MODO CLASE
+========================================= */
+
+.modo-clase-lanzador {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 17px;
+
+}
+
+
+.boton-modo-clase-lanzador {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        auto
+        1fr;
+
+    grid-template-rows:
+        auto
+        auto;
+
+    column-gap: 13px;
+
+    align-items: center;
+
+    width: min(100%, 440px);
+
+    min-height: 67px;
+
+    padding: 12px 18px;
+
+    border: 1px solid
+        rgba(76,141,255,0.25);
+
+    border-radius: 15px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(76,141,255,0.14),
+            rgba(139,92,246,0.07),
+            rgba(5,8,16,0.45)
+        );
+
+    color: #dce8ff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,0.06),
+
+        0 10px 25px
+        rgba(0,0,0,0.18);
+
+    transition:
+
+        transform .15s ease,
+
+        border-color .15s ease,
+
+        background .15s ease,
+
+        box-shadow .15s ease;
+
+}
+
+
+.boton-modo-clase-lanzador:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(76,141,255,0.52);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(76,141,255,0.21),
+            rgba(139,92,246,0.11),
+            rgba(5,8,16,0.5)
+        );
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,0.08),
+
+        0 14px 32px
+        rgba(0,0,0,0.3),
+
+        0 0 28px
+        rgba(76,141,255,0.1);
+
+}
+
+
+.boton-modo-clase-lanzador:active {
+
+    transform: scale(.985);
+
+}
+
+
+.icono-modo-clase {
+
+    grid-row: 1 / span 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(76,141,255,0.13);
+
+    border:
+        1px solid
+        rgba(76,141,255,0.2);
+
+    font-size: 21px;
+
+}
+
+
+.texto-modo-clase {
+
+    align-self: end;
+
+    color: #eaf2ff;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.subtexto-modo-clase {
+
+    align-self: start;
+
+    margin-top: 2px;
+
+    color: #71819d;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+AUTO PAD
+========================================= */
+
+.auto-pad-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(76,141,255,0.055);
+
+    border:
+        1px solid
+        rgba(76,141,255,0.12);
+
+    color: #8197bd;
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+}
+
+
+.auto-pad-indicador {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #5d6981;
+
+    box-shadow:
+        0 0 0 transparent;
+
+}
+
+
+.auto-pad-status.busqueda
+.auto-pad-indicador {
+
+    background: #4c8dff;
+
+    box-shadow:
+        0 0 12px
+        rgba(76,141,255,0.9);
+
+    animation:
+        autoBlink 1s infinite;
+
+}
+
+
+.auto-pad-status.exito
+.auto-pad-indicador {
+
+    background: #35e6a3;
+
+    box-shadow:
+        0 0 12px
+        rgba(53,230,163,0.9);
+
+}
+
+
+@keyframes autoBlink {
+
+    0%, 100% {
+        opacity: .35;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================
+MIDI INFO
+========================================= */
+
+.midi-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 13px;
+
+}
+
+
+.dato {
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.055);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.045),
+            rgba(0,0,0,0.12)
+        );
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.035);
+
+}
+
+
+.dato span {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #74809a;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+}
+
+
+.dato strong {
+
+    font-size: 21px;
+
+}
+
+
+/* =========================================
+MODO CLASE
+========================================= */
+
+.modo-clase-panel {
+
+    overflow: hidden;
+
+}
+
+
+.modo-clase-panel[hidden] {
+
+    display: none !important;
+
+}
+
+
+.modo-clase-cabecera {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.modo-clase-controles {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+}
+
+
+.boton-clase {
+
+    min-height: 40px;
+
+    padding: 0 14px;
+
+    border-radius: 10px;
+
+    border: 1px solid
+        rgba(76,141,255,0.28);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(76,141,255,0.15),
+            rgba(76,141,255,0.05)
+        );
+
+    color: #b9d2ff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: .4px;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s,
+        background .15s,
+        border-color .15s,
+        box-shadow .15s;
+
+}
+
+
+.boton-clase:hover {
+
+    background:
+        rgba(76,141,255,0.22);
+
+    border-color:
+        rgba(76,141,255,0.5);
+
+    box-shadow:
+        0 0 20px
+        rgba(76,141,255,0.12);
+
+}
+
+
+.boton-clase:active {
+
+    transform: scale(.97);
+
+}
+
+
+.boton-desprender {
+
+    color: #cdbdff;
+
+    border-color:
+        rgba(139,92,246,0.3);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139,92,246,0.16),
+            rgba(139,92,246,0.05)
+        );
+
+}
+
+
+.boton-desprender:hover {
+
+    border-color:
+        rgba(139,92,246,0.55);
+
+    background:
+        rgba(139,92,246,0.2);
+
+}
+
+
+/* =========================================
+INFORMACIÓN DEL MODO CLASE
+========================================= */
+
+.clase-informacion {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    gap: 12px;
+
+    margin-top: 10px;
+
+}
+
+
+.clase-acorde {
+
+    min-height: 105px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 18px 22px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        rgba(76,141,255,0.13);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(76,141,255,0.08),
+            rgba(5,8,16,0.4)
+        );
+
+}
+
+
+.clase-etiqueta {
+
+    color: #617fae;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+#acorde-clase {
+
+    margin-top: 4px;
+
+    color: #f5f8ff;
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    text-shadow:
+        0 0 25px
+        rgba(76,141,255,0.25);
+
+}
+
+
+#notas-clase {
+
+    margin-top: 5px;
+
+    color: #8fa3c7;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.sustain-indicador {
+
+    min-width: 145px;
+
+    min-height: 105px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    background:
+        rgba(5,8,15,0.48);
+
+    color: #68758d;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.sustain-indicador strong {
+
+    color: #657087;
+
+    font-size: 13px;
+
+}
+
+
+.sustain-luz {
+
+    width: 11px;
+
+    height: 11px;
+
+    border-radius: 50%;
+
+    background: #4a5262;
+
+    box-shadow:
+        0 0 0 transparent;
+
+    transition:
+        background .15s,
+        box-shadow .15s;
+
+}
+
+
+.sustain-indicador.activo {
+
+    border-color:
+        rgba(53,230,163,0.3);
+
+    background:
+        rgba(53,230,163,0.055);
+
+    color: #75ddb2;
+
+}
+
+
+.sustain-indicador.activo .sustain-luz {
+
+    background: #35e6a3;
+
+    box-shadow:
+        0 0 15px
+        rgba(53,230,163,0.9);
+
+}
+
+
+.sustain-indicador.activo strong {
+
+    color: #35e6a3;
+
+}
+
+
+/* =========================================
+CONTENEDOR DEL PIANO
+========================================= */
+
+.contenedor-piano-clase {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 16px;
+
+    padding: 14px;
+
+    overflow-x: hidden;
+
+    overflow-y: hidden;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(3,6,13,0.95),
+            rgba(9,13,23,0.98)
+        );
+
+    box-shadow:
+        inset 0 5px 20px
+        rgba(0,0,0,0.45);
+
+}
+
+
+/* =========================================
+PIANO RESPONSIVO
+========================================= */
+
+.piano-clase {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 198px;
+
+    min-width: 0;
+
+}
+
+
+.teclado-clase {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 182px;
+
+    min-width: 0;
+
+}
+
+
+/* =========================================
+TECLAS BLANCAS
+========================================= */
+
+.tecla-clase {
+
+    position: absolute;
+
+    top: 0;
+
+    height: 182px;
+
+    border-radius:
+        0 0 6px 6px;
+
+    border:
+        1px solid
+        rgba(15,19,29,0.9);
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f4f6fa 72%,
+            #cfd5df 100%
+        );
+
+    box-shadow:
+
+        inset 1px 0 0
+        rgba(255,255,255,.9),
+
+        inset -1px 0 0
+        rgba(0,0,0,.12),
+
+        0 4px 7px
+        rgba(0,0,0,.25);
+
+    color: #202636;
+
+    cursor: default;
+
+    transition:
+        background .06s,
+        box-shadow .06s,
+        transform .06s;
+
+    z-index: 1;
+
+}
+
+
+.tecla-clase .etiqueta-tecla {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 7px;
+
+    text-align: center;
+
+    color: #6c7483;
+
+    font-size: 7px;
+
+    font-weight: 800;
+
+    pointer-events: none;
+
+    white-space: nowrap;
+
+}
+
+
+.tecla-clase.es-c {
+
+    border-top-left-radius: 5px;
+
+    border-top-right-radius: 5px;
+
+}
+
+
+.tecla-clase.activa {
+
+    background:
+        linear-gradient(
+            180deg,
+            #72dfff 0%,
+            #3ca8ff 55%,
+            #2374d8 100%
+        );
+
+    border-color:
+        rgba(0,217,255,.95);
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,.55),
+
+        0 0 10px
+        rgba(0,217,255,.7),
+
+        0 0 22px
+        rgba(76,141,255,.4);
+
+    transform:
+        translateY(2px);
+
+}
+
+
+.tecla-clase.activa .etiqueta-tecla {
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================
+TECLAS NEGRAS
+========================================= */
+
+.tecla-negra-clase {
+
+    position: absolute;
+
+    top: 0;
+
+    height: 113px;
+
+    border-radius:
+        0 0 5px 5px;
+
+    border:
+        1px solid
+        #05070b;
+
+    background:
+        linear-gradient(
+            100deg,
+            #454c5a 0%,
+            #171c27 42%,
+            #05070b 100%
+        );
+
+    box-shadow:
+
+        inset 1px 0 0
+        rgba(255,255,255,.12),
+
+        inset -2px 0 2px
+        rgba(0,0,0,.7),
+
+        0 6px 9px
+        rgba(0,0,0,.5);
+
+    z-index: 5;
+
+    cursor: default;
+
+    transition:
+        background .06s,
+        box-shadow .06s,
+        transform .06s;
+
+}
+
+
+.tecla-negra-clase.activa {
+
+    background:
+        linear-gradient(
+            100deg,
+            #7ce8ff 0%,
+            #278dd4 45%,
+            #104c85 100%
+        );
+
+    border-color:
+        #00d9ff;
+
+    box-shadow:
+
+        inset 1px 0 0
+        rgba(255,255,255,.5),
+
+        0 0 11px
+        rgba(0,217,255,.9),
+
+        0 0 23px
+        rgba(76,141,255,.5);
+
+    transform:
+        translateY(2px);
+
+}
+
+
+/* =========================================
+ESTADO MODO CLASE
+========================================= */
+
+.estado-modo-clase {
+
+    margin-top: 9px;
+
+    color: #63708a;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    text-align: right;
+
+}
+
+
+/* =========================================
+MODO CLASE DESPRENDIDO
+========================================= */
+
+.modo-clase-panel.desprendido {
+
+    position: fixed;
+
+    top: 70px;
+
+    left: 50%;
+
+    width: min(1120px, 94vw);
+
+    max-height: calc(100vh - 100px);
+
+    margin: 0;
+
+    transform: translateX(-50%);
+
+    z-index: 10000;
+
+    overflow: auto;
+
+    box-shadow:
+
+        0 35px 90px
+        rgba(0,0,0,.7),
+
+        0 0 0 1px
+        rgba(76,141,255,.12);
+
+}
+
+
+.modo-clase-panel.desprendido
+.modo-clase-cabecera {
+
+    cursor: grab;
+
+}
+
+
+.modo-clase-panel.desprendido
+.modo-clase-cabecera:active {
+
+    cursor: grabbing;
+
+}
+
+
+/* =========================================
+DRUM PADS
+========================================= */
+
+.drum-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-top: 18px;
+
+}
+
+
+.pad-config {
+
+    min-width: 0;
+
+}
+
+
+.drum-pad {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 145px;
+
+    overflow: hidden;
+
+    border-radius: 19px;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        transform .08s,
+        filter .12s,
+        box-shadow .15s;
+
+    box-shadow:
+
+        inset 0 1px 0
+        rgba(255,255,255,0.12),
+
+        inset 0 -12px 25px
+        rgba(0,0,0,0.2),
+
+        0 10px 25px
+        rgba(0,0,0,0.22);
+
+}
+
+
+.drum-pad::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -45%;
+
+    left: -20%;
+
+    width: 80%;
+
+    height: 90%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    filter: blur(20px);
+
+}
+
+
+.drum-pad span {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: block;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.drum-pad small {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: block;
+
+    margin-top: 9px;
+
+    color:
+        rgba(255,255,255,0.72);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+PREMIUM
+========================================= */
+
+.pad-color-1 {
+
+    --pad-color: #00e5ff;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(0,229,255,.25),
+            #102c3c 68%,
+            #0d1c28
+        );
+
+    border:
+        1px solid
+        rgba(0,229,255,.38);
+
+    animation:
+        premiumPulse1 2.2s ease-in-out infinite;
+
+}
+
+
+.pad-color-2 {
+
+    --pad-color: #ff2bd6;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,43,214,.25),
+            #35152f 68%,
+            #221022
+        );
+
+    border:
+        1px solid
+        rgba(255,43,214,.38);
+
+    animation:
+        premiumPulse2 2.4s ease-in-out infinite;
+
+}
+
+
+.pad-color-3 {
+
+    --pad-color: #a855ff;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(168,85,255,.25),
+            #28183e 68%,
+            #1b122a
+        );
+
+    border:
+        1px solid
+        rgba(168,85,255,.38);
+
+    animation:
+        premiumPulse3 2.1s ease-in-out infinite;
+
+}
+
+
+.pad-color-4 {
+
+    --pad-color: #ff9d00;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,157,0,.25),
+            #3b2814 68%,
+            #251a0c
+        );
+
+    border:
+        1px solid
+        rgba(255,157,0,.38);
+
+    animation:
+        premiumPulse4 2.6s ease-in-out infinite;
+
+}
+
+
+/* =========================================
+PULSACIÓN
+========================================= */
+
+@keyframes premiumPulse1 {
+
+    0%, 100% {
+        filter: brightness(.78);
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.25),
+            0 0 8px rgba(0,229,255,.16);
+    }
+
+    50% {
+        filter: brightness(1.25);
+        box-shadow:
+            0 8px 25px rgba(0,0,0,.25),
+            0 0 27px rgba(0,229,255,.55);
+    }
+
+}
+
+
+@keyframes premiumPulse2 {
+
+    0%, 100% {
+        filter: brightness(.78);
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.25),
+            0 0 8px rgba(255,43,214,.16);
+    }
+
+    50% {
+        filter: brightness(1.25);
+        box-shadow:
+            0 8px 25px rgba(0,0,0,.25),
+            0 0 27px rgba(255,43,214,.55);
+    }
+
+}
+
+
+@keyframes premiumPulse3 {
+
+    0%, 100% {
+        filter: brightness(.78);
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.25),
+            0 0 8px rgba(168,85,255,.16);
+    }
+
+    50% {
+        filter: brightness(1.25);
+        box-shadow:
+            0 8px 25px rgba(168,85,255,.55);
+    }
+
+}
+
+
+@keyframes premiumPulse4 {
+
+    0%, 100% {
+        filter: brightness(.78);
+        box-shadow:
+            0 8px 20px rgba(0,0,0,.25),
+            0 0 8px rgba(255,157,0,.16);
+    }
+
+    50% {
+        filter: brightness(1.25);
+        box-shadow:
+            0 8px 25px rgba(0,0,0,.25),
+            0 0 27px rgba(255,157,0,.55);
+    }
+
+}
+
+
+/* =========================================
+USER PADS
+========================================= */
+
+.pad-user-1 {
+
+    background:
+        linear-gradient(
+            145deg,
+            #29486c,
+            #14253b
+        );
+
+    border:
+        1px solid #416991;
+
+}
+
+
+.pad-user-2 {
+
+    background:
+        linear-gradient(
+            145deg,
+            #315847,
+            #182d26
+        );
+
+    border:
+        1px solid #4c806d;
+
+}
+
+
+.pad-user-3 {
+
+    background:
+        linear-gradient(
+            145deg,
+            #503f6d,
+            #292039
+        );
+
+    border:
+        1px solid #705b94;
+
+}
+
+
+.pad-user-4 {
+
+    background:
+        linear-gradient(
+            145deg,
+            #5d4a36,
+            #302419
+        );
+
+    border:
+        1px solid #896f4d;
+
+}
+
+
+/* =========================================
+PAD ACTIVO
+========================================= */
+
+.drum-pad.activo {
+
+    transform: scale(.955);
+
+    filter: brightness(1.55);
+
+}
+
+
+.pad-color-1.activo {
+
+    box-shadow:
+        0 0 60px
+        rgba(0,229,255,.95);
+
+}
+
+
+.pad-color-2.activo {
+
+    box-shadow:
+        0 0 60px
+        rgba(255,43,214,.95);
+
+}
+
+
+.pad-color-3.activo {
+
+    box-shadow:
+        0 0 60px
+        rgba(168,85,255,.95);
+
+}
+
+
+.pad-color-4.activo {
+
+    box-shadow:
+        0 0 60px
+        rgba(255,157,0,.95);
+
+}
+
+
+/* =========================================
+PERILLAS
+========================================= */
+
+.perillas-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 17px;
+
+    margin-top: 22px;
+
+}
+
+
+.perilla-contenedor {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    user-select: none;
+
+}
+
+
+.perilla-contenedor strong {
+
+    color: #dce3f4;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.cc-info {
+
+    color: #697690;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+PERILLA
+========================================= */
+
+.perilla {
+
+    position: relative;
+
+    width: 98px;
+
+    height: 98px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 32% 26%,
+            #657088,
+            #293044 48%,
+            #101521 100%
+        );
+
+    border: 3px solid #080b12;
+
+    box-shadow:
+
+        inset 0 4px 6px
+        rgba(255,255,255,.1),
+
+        inset 0 -7px 9px
+        rgba(0,0,0,.6),
+
+        0 10px 22px
+        rgba(0,0,0,.4);
+
+    cursor: ns-resize;
+
+    transform: rotate(-135deg);
+
+}
+
+
+.perilla::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.perilla-indicador {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 7px;
+
+    width: 3px;
+
+    height: 25px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 3px;
+
+    background: white;
+
+    box-shadow:
+        0 0 6px
+        rgba(255,255,255,.55);
+
+}
+
+
+.perilla-centro {
+
+    position: absolute;
+
+    inset: 27px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #1d2435,
+            #111622
+        );
+
+    box-shadow:
+        inset 0 3px 6px
+        rgba(0,0,0,.65);
+
+}
+
+
+.valor-perilla {
+
+    color: #e6ebf8;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================
+MENÚS
+========================================= */
+
+.menu-contextual {
+
+    position: fixed;
+
+    display: none;
+
+    z-index: 9999;
+
+    min-width: 205px;
+
+    padding: 5px;
+
+    border: 1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 13px;
+
+    background:
+        rgba(20,25,40,.96);
+
+    box-shadow:
+
+        0 20px 45px
+        rgba(0,0,0,.5),
+
+        inset 0 1px 0
+        rgba(255,255,255,.05);
+
+    backdrop-filter: blur(18px);
+
+}
+
+
+.menu-contextual.visible {
+
+    display: block;
+
+}
+
+
+.menu-contextual button {
+
+    width: 100%;
+
+    padding: 10px 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #edf1fb;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+}
+
+
+.menu-contextual button:hover {
+
+    background:
+        rgba(76,141,255,.13);
+
+}
+
+
+/* =========================================
+MEMORIAS
+========================================= */
+
+.memorias {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.boton-memoria {
+
+    padding: 11px 18px;
+
+    border: 1px solid
+        rgba(255,255,255,.09);
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #252d44,
+            #171d2d
+        );
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.05),
+
+        0 7px 16px
+        rgba(0,0,0,.2);
+
+    transition:
+        transform .1s,
+        border .15s,
+        background .15s;
+
+}
+
+
+.boton-memoria:hover {
+
+    border-color:
+        rgba(76,141,255,.35);
+
+}
+
+
+.boton-memoria:active {
+
+    transform: scale(.96);
+
+}
+
+
+.boton-memoria.guardada {
+
+    border-color:
+        rgba(139,92,246,.55);
+
+    background:
+        linear-gradient(
+            145deg,
+            #312957,
+            #1d1835
+        );
+
+}
+
+
+/* =========================================
+MONITOR
+========================================= */
+
+.monitor {
+
+    min-height: 95px;
+
+    padding: 17px;
+
+    border-radius: 14px;
+
+    border: 1px solid
+        rgba(255,255,255,.06);
+
+    background:
+        linear-gradient(
+            145deg,
+            #080d18,
+            #0c1220
+        );
+
+    color: #70d9ff;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    box-shadow:
+        inset 0 2px 12px
+        rgba(0,0,0,.45);
+
+}
+
+
+/* =========================================
+FOOTER
+========================================= */
+
+footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 17px;
+
+    padding: 8px 5px;
+
+    color: #58647b;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+
+    .encabezado {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .perillas-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .pantallas-header {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .midi-info {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .selector-controlador-row {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .boton-secundario {
+
+        min-height: 42px;
+
+    }
+
+
+    .drum-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .perillas-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .modo-clase-cabecera {
+
+        flex-direction: column;
+
+    }
+
+
+    .modo-clase-controles {
+
+        width: 100%;
+
+    }
+
+
+    .boton-clase {
+
+        flex: 1;
+
+    }
+
+
+    .clase-informacion {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .sustain-indicador {
+
+        min-height: 70px;
+
+        flex-direction: row;
+
+        justify-content: flex-start;
+
+    }
+
+
+    .modo-clase-panel.desprendido {
+
+        top: 15px;
+
+        width: 96vw;
+
+        max-height: calc(100vh - 30px);
+
+    }
+
+
+    .boton-modo-clase-lanzador {
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .app {
+
+        width: 94%;
+
+        margin-top: 15px;
+
+    }
+
+
+    .encabezado,
+    .panel {
+
+        padding: 16px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .encabezado h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .drum-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .perillas-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .perilla {
+
+        width: 88px;
+
+        height: 88px;
+
+    }
+
+
+    .modo-clase-controles {
+
+        flex-direction: column;
+
+    }
+
+
+    .boton-clase {
+
+        width: 100%;
+
+    }
+
+
+    #acorde-clase {
+
+        font-size: 28px;
+
+    }
+
+
+    .boton-modo-clase-lanzador {
+
+        min-height: 62px;
+
+        padding: 10px 13px;
+
+    }
+
+
+    .icono-modo-clase {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 19px;
+
+    }
+
+}
+
+
+/* =========================================
+MODO CLASE — DISPOSITIVOS TÁCTILES
+El piano permanece integrado.
+========================================= */
+
+@media (pointer: coarse) {
+
+    .boton-desprender {
+
+        display: none;
+
+    }
+
+}
